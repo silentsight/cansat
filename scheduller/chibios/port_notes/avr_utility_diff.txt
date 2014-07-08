@@ -1,0 +1,45 @@
+Only in C:\Users\bill\Documents\Arduino\libraries\ChibiOS_AVR\utility: board.c
+diff -rb D:\ChibiOS\ChibiOS_2.6.0\utility_avr260/chconf.h C:\Users\bill\Documents\Arduino\libraries\ChibiOS_AVR\utility/chconf.h
+29a30,34
+> //-----------------------------------------------------------------------------
+> //Arduino overrides
+> #define CH_FREQUENCY                    (F_CPU/16384L)
+> #define CH_USE_MEMPOOLS                 FALSE
+> #define CH_DBG_FILL_THREADS             TRUE
+diff -rb D:\ChibiOS\ChibiOS_2.6.0\utility_avr260/chcore.h C:\Users\bill\Documents\Arduino\libraries\ChibiOS_AVR\utility/chcore.h
+106a107,109
+> #ifdef __AVR_3_BYTE_PC__
+>   uint8_t       pcx;
+> #endif  // __AVR_3_BYTE_PC_
+136a140,142
+> #ifdef __AVR_3_BYTE_PC__
+>   uint8_t       pcx;
+> #endif  // __AVR_3_BYTE_PC__
+155a162
+> #ifdef __AVR_3_BYTE_PC__
+162a170
+>   tp->p_ctx.sp->pcx = 0;                                                \
+165a174,186
+> #else  // __AVR_3_BYTE_PC__
+> #define SETUP_CONTEXT(workspace, wsize, pf, arg) {                      \
+>   tp->p_ctx.sp = (struct intctx*)((uint8_t *)workspace + wsize  -       \
+>                                   sizeof(struct intctx));               \
+>   tp->p_ctx.sp->r2  = (int)pf;                                          \
+>   tp->p_ctx.sp->r3  = (int)pf >> 8;                                     \
+>   tp->p_ctx.sp->r4  = (int)arg;                                         \
+>   tp->p_ctx.sp->r5  = (int)arg >> 8;                                    \
+>   tp->p_ctx.sp->pcl = (int)_port_thread_start >> 8;                     \
+>   tp->p_ctx.sp->pch = (int)_port_thread_start;                          \
+> }
+> 
+> #endif  // __AVR_3_BYTE_PC__
+diff -rb D:\ChibiOS\ChibiOS_2.6.0\utility_avr260/hal.h C:\Users\bill\Documents\Arduino\libraries\ChibiOS_AVR\utility/hal.h
+39a40,41
+> 
+> #if 0  // WHG
+52a55
+> 
+73c76
+< 
+---
+> #endif  // WHG

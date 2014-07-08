@@ -1,0 +1,54 @@
+diff -rb D:\ChibiOS\ChibiOS_2.6.0\utility_arm260/chconf.h C:\Users\bill\Documents\Arduino\libraries\ChibiOS_ARM\utility/chconf.h
+41c41,45
+< 
+---
+> // Arduino port overrides
+> #define CH_USE_MEMCORE                  FALSE
+> #define CH_USE_HEAP                     FALSE
+> #define CH_DBG_FILL_THREADS             TRUE
+> #define CORTEX_HAS_FPU                  FALSE
+diff -rb D:\ChibiOS\ChibiOS_2.6.0\utility_arm260/chcore_v7m.c C:\Users\bill\Documents\Arduino\libraries\ChibiOS_ARM\utility/chcore_v7m.c
+36a37,58
+> //------------------------------------------------------------------------------
+> // Mods for Arduino
+> #include <Arduino.h>
+> int sysTickEnabled = 0;
+> #ifdef CORE_TEENSY
+> // Teensy 3.0
+> #define SVCallVector svcall_isr
+> #define PendSVVector pend_isr
+> extern volatile uint32_t systick_millis_count;
+> void systick_isr() {
+>   systick_millis_count++;
+>   if (sysTickEnabled) SysTickVector();
+> }
+> #else  // CORE_TEENSY
+> // Due
+> #if ARDUINO > 151
+> #define SVCallVector svcHook
+> #define PendSVVector pendSVHook
+> #else  //ARDUINO > 151
+> #define SVCallVector SVC_Handler
+> #define PendSVVector PendSV_Handler
+> #endif  // ARDUINO > 151
+37a60,64
+> int sysTickHook(void) {
+>   if (sysTickEnabled) SysTickVector();
+>   return 0;
+> }
+> #endif  // CORE_TEENSY
+diff -rb D:\ChibiOS\ChibiOS_2.6.0\utility_arm260/cmparams.h C:\Users\bill\Documents\Arduino\libraries\ChibiOS_ARM\utility/cmparams.h
+60c60
+< #define CORTEX_HAS_FPU          TRUE
+---
+> #define CORTEX_HAS_FPU          FALSE
+diff -rb D:\ChibiOS\ChibiOS_2.6.0\utility_arm260/hal.h C:\Users\bill\Documents\Arduino\libraries\ChibiOS_ARM\utility/hal.h
+39a40,41
+> 
+> #if 0  // WHG
+52a55
+> 
+73c76
+< 
+---
+> #endif  // WHG
