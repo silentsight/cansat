@@ -1,3 +1,6 @@
+APPlication layer
+=================
+
 This is a folder for the main application files to be compiled and run.
 
 The next folders are MCL & SDA which stand for Microcontroller Level Layer & Software Driver Application Layer.
