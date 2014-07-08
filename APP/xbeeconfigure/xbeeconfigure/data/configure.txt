@@ -1,0 +1,16 @@
+# This configuration is for wireless uploading
+[Common]
+BD 4
+RO 10
+
+[Transmitter]
+NI Transmitter
+D3 3
+IC FF
+
+[Receiver]
+NI Receiver
+D3 5
+IU 0
+IA FFFF
+
